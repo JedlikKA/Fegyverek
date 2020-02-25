@@ -10,6 +10,7 @@ namespace Fegyverek
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
