@@ -8,74 +8,83 @@ namespace Fegyverek
 {
     class Program
     {
-        enum fegyverek {apaökle, uzi, lángszoró, kézigránát, revolver, shotgun, deagle};
+        enum fegyverek { Uzi, M4, Gránát, Lánszóró, Atombomba, FiNg, }
+
         static void Main(string[] args)
         {
-            List<fegyverek> fegyvertár = new List<fegyverek>();
-            //Egy fegyver csak egy példányba tárolható
-            Felpakol(fegyvertár); //Az összes fegyvert berakja a fegyvertárba
-            Listázó(fegyvertár);
-            Console.WriteLine(FegyverSzám(fegyvertár));
-            Kivesz(fegyvertár); //Egy fegyvert kivesz a fegyvertárból
-            Listázó(fegyvertár);
-            Felvesz(fegyvertár, fegyverek.shotgun); //Egy fegyvert berak a tár végére
-            Listázó(fegyvertár);
-            Felvesz2(fegyvertár,fegyverek.lángszoró); //Egy fegyvert berak a i. helyére
-            Listázó(fegyvertár);
-            int db = FegyverSzám(fegyvertár); //visszaadja hány fegyver van a listában éppen
-            Listázó(fegyvertár);
-            
-            
-            
+            List<fegyverek> fegyvertáska = new List<fegyverek>();
+            // Egy fegyvert csak egy példányban tárolhatunk.
+            Felpakol(fegyvertáska); //Az összes fegyvert berakja a fegyvertárba.
+            Kivesz(fegyvertáska, fegyverek.Lánszóró);   //Egy konkrét fegyvert kivesz a fegyvertárból.
+            Felvesz(fegyvertáska, fegyverek.Lánszóró);  //Egy fegyvert betesz a fegyvertár végére.
+            Felvesz_2(fegyvertáska, fegyverek.Lánszóró);//Egy fegyvert berak i. helyre
+            Kiürít(fegyvertáska);   //Kiüríti a fegyvertárat.
+            int db = Fegyverszám(fegyvertáska); // Visszaadja hány fegyver van a fegyvertárban.
+            Listázó(fegyvertáska);  //Kiírja milyen fegyverek vannak nálam.
             Console.ReadKey();
         }
 
-
-        static void Felvesz2(List<fegyverek> fegyvertár, fegyverek lángszoró)
+        private static int Fegyverszám(List<fegyverek> fegyvertáska)
         {
-            if (!fegyvertár.Contains(fegyverek.lángszoró))
+            int db = fegyvertáska.Count;
+            Console.WriteLine($"{db} fegyver van nálad.");
+            return db;
+        }
+
+        static void Kiürít(List<fegyverek> fegyvertáska)
+        {
+            fegyvertáska.Remove(fegyverek.Atombomba);
+            fegyvertáska.Remove(fegyverek.Uzi);
+            fegyvertáska.Remove(fegyverek.M4);
+            fegyvertáska.Remove(fegyverek.Gránát);
+            fegyvertáska.Remove(fegyverek.Lánszóró);
+            fegyvertáska.Remove(fegyverek.FiNg);
+            Listázó(fegyvertáska);
+        }
+
+        static void Felvesz_2(List<fegyverek> fegyvertáska, fegyverek lánszóró)
+        {
+            if (!fegyvertáska.Contains(fegyverek.Lánszóró))
             {
-                fegyvertár.Insert(0, fegyverek.lángszoró);
-                Listázó(fegyvertár);
+                fegyvertáska.Insert(0, fegyverek.Lánszóró);
+                Listázó(fegyvertáska);
+            }
+
+        }
+
+        static void Felvesz(List<fegyverek> fegyvertáska, fegyverek lánszóró)
+        {
+            if (!fegyvertáska.Contains(fegyverek.Lánszóró))
+            {
+                fegyvertáska.Add(fegyverek.Lánszóró);
+                Listázó(fegyvertáska);
             }
         }
 
-        static void Felvesz(List<fegyverek> fegyvertár, fegyverek shotgun)
+        static void Kivesz(List<fegyverek> fegyvertáska, fegyverek lánszóró)
         {
-            if (!fegyvertár.Contains(fegyverek.shotgun))
+            fegyvertáska.Remove(fegyverek.Lánszóró);
+            Listázó(fegyvertáska);
+        }
+
+        static void Listázó(List<fegyverek> fegyvertáska)
+        {
+            Console.WriteLine("Fegyvertáska: ");
+            foreach (fegyverek elem in fegyvertáska)
             {
-                fegyvertár.Add(fegyverek.shotgun);
-                Listázó(fegyvertár);
+                Console.Write(elem + ", ");
             }
         }
 
-        static void Kivesz(List<fegyverek> fegyvertár, fegyverek fegyverek)
+        static void Felpakol(List<fegyverek> fegyvertáska)
         {
-            fegyvertár.Remove(fegyverek);
-        }
-
-        static int FegyverSzám(List<fegyverek> fegyvertár)
-        {
-            return fegyvertár.Count;
-        }
-
-        static void Listázó(List<fegyverek> fegyvertár)
-        {
-            foreach (fegyverek item in fegyvertár)
-            {
-                Console.WriteLine(item);
-            }
-        }
-
-        static void Felpakol(List<fegyverek> fegyvertár)
-        {
-            fegyvertár.Add(fegyverek.apaökle);
-            fegyvertár.Add(fegyverek.uzi);
-            fegyvertár.Add(fegyverek.lángszoró);
-            fegyvertár.Add(fegyverek.kézigránát);
-            fegyvertár.Add(fegyverek.revolver);
-            fegyvertár.Add(fegyverek.shotgun);
-            fegyvertár.Add(fegyverek.deagle);
+            fegyvertáska.Add(fegyverek.Atombomba);
+            fegyvertáska.Add(fegyverek.Uzi);
+            fegyvertáska.Add(fegyverek.M4);
+            fegyvertáska.Add(fegyverek.Gránát);
+            fegyvertáska.Add(fegyverek.Lánszóró);
+            fegyvertáska.Add(fegyverek.FiNg);
+            Listázó(fegyvertáska);
         }
     }
 }
